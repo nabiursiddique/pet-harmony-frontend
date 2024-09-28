@@ -31,7 +31,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       // if non logged in user try to hit the protected routes then redirecting to login page
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(
+        new URL(`/login?redirect=${pathname}`, request.url)
+      );
     }
   }
 

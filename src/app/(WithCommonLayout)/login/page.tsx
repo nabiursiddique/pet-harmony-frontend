@@ -9,14 +9,28 @@ import loginValidationSchema from "@/src/schemas/login.schema";
 import PHForm from "@/src/components/form/PHForm";
 import { useUserLogIn } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LogIn = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirect = searchParams.get("redirect");
+
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogIn();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const userData = data;
     handleUserLogin(userData);
   };
+
+  // redirecting user after login
+  if (!isPending && isSuccess) {
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
+  }
 
   return (
     <>

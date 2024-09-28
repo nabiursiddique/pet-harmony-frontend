@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
+//* Register user
 export const registerUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/user/register", userData);
@@ -22,6 +23,7 @@ export const registerUser = async (userData: FieldValues) => {
   }
 };
 
+//* Login user
 export const logInUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/logIn", userData);
@@ -39,6 +41,13 @@ export const logInUser = async (userData: FieldValues) => {
   }
 };
 
+//* Logout the user
+export const logout = () => {
+  cookies().delete("accessToken");
+  cookies().delete("refreshToken");
+};
+
+//* Get the current logged in user from token
 export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
 
