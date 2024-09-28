@@ -18,12 +18,9 @@ const LogIn = () => {
     handleUserLogin(userData);
   };
 
-  if (isPending && !isSuccess) {
-    return <Loading />;
-  }
-
   return (
     <>
+      {isPending && !isSuccess && <Loading />}
       <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
         <h3 className="my-2 text-3xl font-bold uppercase">Log In</h3>
         <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
