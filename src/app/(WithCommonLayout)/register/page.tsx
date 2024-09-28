@@ -7,11 +7,14 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PHForm from "@/src/components/form/PHForm";
+import { registerUser } from "@/src/services/AuthService";
 
 const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const userData = data;
+    registerUser(userData);
   };
+
   return (
     <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
       <h3 className="my-2 text-3xl font-bold uppercase">Register</h3>
