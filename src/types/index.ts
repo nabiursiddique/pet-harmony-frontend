@@ -13,3 +13,11 @@ export interface IInput {
   name: string;
   disabled?: boolean;
 }
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  profileImage: string;
+}

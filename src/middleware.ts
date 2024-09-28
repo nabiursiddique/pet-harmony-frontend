@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getCurrentUser } from "./services/AuthService";
 
 type Role = keyof typeof roleBasedRoutes;
 
@@ -12,17 +13,17 @@ const roleBasedRoutes = {
   admin: [/^\/admin/],
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   // to get current pathname
   const { pathname } = request.nextUrl;
 
-  // const user = {
-  //   name: "Nabiur Siddique",
-  //   token: "alsdflsa",
-  //   role: "user",
-  // };
+  const user = await getCurrentUser();
 
-  const user = null;
+  // _id: decodedToken._id,
+  // name: decodedToken.name,
+  // email: decodedToken.email,
+  // role: decodedToken.role,
+  // profileImage: decodedToken.profileImage,
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -48,5 +49,5 @@ export function middleware(request: NextRequest) {
 
 // protected routes / middleware will only work when we go to these routes
 export const config = {
-  matcher: ["/found-items", "/login", "/register", "/profile"],
+  matcher: ["/found-items", "/login", "/register", "/profile/:page*"],
 };
