@@ -7,11 +7,20 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginValidationSchema from "@/src/schemas/login.schema";
 import PHForm from "@/src/components/form/PHForm";
+import { useUserLogIn } from "@/src/hooks/auth.hook";
+import Loading from "@/src/components/UI/Loading";
 
 const LogIn = () => {
+  const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogIn();
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const userData = data;
+    handleUserLogin(userData);
   };
+
+  if (isPending && !isSuccess) {
+    return <Loading />;
+  }
 
   return (
     <>

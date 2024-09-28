@@ -20,3 +20,20 @@ export const registerUser = async (userData: FieldValues) => {
     throw new Error(errorMessage);
   }
 };
+
+export const logInUser = async (userData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/logIn", userData);
+
+    if (data.success) {
+      cookies().set("accessToken", data?.data?.accessToken);
+      cookies().set("refreshToken", data?.data?.refreshToken);
+    }
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || "Registration failed";
+    throw new Error(errorMessage);
+  }
+};
