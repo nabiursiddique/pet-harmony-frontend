@@ -7,13 +7,24 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PHForm from "@/src/components/form/PHForm";
-import { registerUser } from "@/src/services/AuthService";
+import { useUserRegistration } from "@/src/hooks/auth.hook";
+import Loading from "@/src/components/UI/Loading";
 
 const Register = () => {
+  const {
+    mutate: handleUserRegistration,
+    isPending,
+    isSuccess,
+  } = useUserRegistration();
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const userData = data;
-    registerUser(userData);
+    handleUserRegistration(userData);
   };
+
+  if (isPending && !isSuccess) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
@@ -23,6 +34,14 @@ const Register = () => {
         <PHForm
           onSubmit={onSubmit}
           resolver={zodResolver(registerValidationSchema)}
+          //! For Development only
+          defaultValues={{
+            name: "Nabiur Siddique",
+            email: "nabiursiddique01@gmail.com",
+            password: "123456",
+            profileImage:
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          }}
         >
           <div className="py-3">
             <PHInput label="Name" name="name" size="sm" />
