@@ -10,17 +10,20 @@ import PHForm from "@/src/components/form/PHForm";
 import { useUserLogIn } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const LogIn = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const redirect = searchParams.get("redirect");
+  const { setIsLoading: userLoading } = useUser();
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogIn();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const userData = data;
     handleUserLogin(userData);
+    userLoading(true);
   };
 
   // redirecting user after login
