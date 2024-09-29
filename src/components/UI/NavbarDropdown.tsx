@@ -32,10 +32,7 @@ const NavbarDropdown = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar
-          className="cursor-pointer"
-          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-        />
+        <Avatar className="cursor-pointer" src={user?.profileImage} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem onClick={() => handleNavigation("/profile")}>
