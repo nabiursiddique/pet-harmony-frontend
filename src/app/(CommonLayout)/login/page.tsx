@@ -39,8 +39,10 @@ const LogIn = () => {
     <>
       {isPending && !isSuccess && <Loading />}
       <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
-        <h3 className="my-2 text-3xl font-bold uppercase">Log In</h3>
-        <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
+        <h3 className="my-2 text-3xl font-extrabold text-teal-500">Log In</h3>
+        <p className="mb-4 text-teal-500 font-bold">
+          Welcome Back! Let&lsquo;s Get Started
+        </p>
         <div className="lg:w-[35%] w-[90%]">
           <PHForm
             onSubmit={onSubmit}
@@ -54,7 +56,7 @@ const LogIn = () => {
             </div>
 
             <Button
-              className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
+              className="my-3 w-full rounded-md bg-teal-600 text-white"
               size="lg"
               type="submit"
             >
@@ -63,7 +65,9 @@ const LogIn = () => {
           </PHForm>
           <div className="text-center">
             Don&lsquo;t have an account?{" "}
-            <Link href={"/register"}>Register</Link>
+            <Link href={"/register"} className="text-teal-500 font-bold">
+              Register
+            </Link>
           </div>
         </div>
       </div>

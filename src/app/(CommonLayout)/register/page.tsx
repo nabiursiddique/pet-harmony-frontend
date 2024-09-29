@@ -26,8 +26,10 @@ const Register = () => {
     <>
       {isPending && !isSuccess && <Loading />}
       <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
-        <h3 className="my-2 text-3xl font-bold uppercase">Register</h3>
-        <p className="mb-4">Let's Get Started a new journey</p>
+        <h3 className="my-2 text-3xl font-extrabold text-teal-500">Register</h3>
+        <p className="mb-4 text-teal-500 font-bold">
+          Let's Get Started a new journey
+        </p>
         <div className="lg:w-[35%] w-[90%]">
           <PHForm
             onSubmit={onSubmit}
@@ -64,7 +66,7 @@ const Register = () => {
             </div>
 
             <Button
-              className="my-3 w-full rounded-md bg-default-900 text-default"
+              className="my-3 w-full rounded-md bg-teal-600 text-white"
               size="lg"
               type="submit"
             >
@@ -72,7 +74,10 @@ const Register = () => {
             </Button>
           </PHForm>
           <div className="text-center">
-            Already have an account ? <Link href={"/login"}>Login</Link>
+            Already have an account ?{" "}
+            <Link href={"/login"} className="text-teal-500 font-bold">
+              Login
+            </Link>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ const AuthRoutes = ["/login", "/register"];
 
 const roleBasedRoutes = {
   // user can access these routes (/^\/profile/ means starting with /profile)
-  user: [/^\/profile/, "/found-items"],
+  user: [/^\/profile/, "/posts"],
   // admin can access these routes
   admin: [/^\/admin/],
 };
@@ -18,12 +18,6 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const user = await getCurrentUser();
-
-  // _id: decodedToken._id,
-  // name: decodedToken.name,
-  // email: decodedToken.email,
-  // role: decodedToken.role,
-  // profileImage: decodedToken.profileImage,
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -51,5 +45,5 @@ export async function middleware(request: NextRequest) {
 
 // protected routes / middleware will only work when we go to these routes
 export const config = {
-  matcher: ["/found-items", "/login", "/register", "/profile/:page*"],
+  matcher: ["/posts", "/login", "/register", "/profile/:page*"],
 };
