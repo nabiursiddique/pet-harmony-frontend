@@ -2,14 +2,12 @@
 
 import { logout } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { user } from "@nextui-org/theme";
 
 import { useRouter } from "next/navigation";
 
