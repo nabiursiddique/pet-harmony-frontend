@@ -1,5 +1,3 @@
-"use client";
-
 import { Image } from "@nextui-org/image";
 
 const LandingImage = () => {
