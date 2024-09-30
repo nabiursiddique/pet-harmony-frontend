@@ -6,12 +6,27 @@ import ProfileCardSkeleton from "@/src/components/UI/Skeletons/ProfileCardSkelet
 import { useUser } from "@/src/context/user.provider";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
+import { useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FaUserEdit } from "react-icons/fa";
 
 const Profile = () => {
   const { user, isLoading } = useUser();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const updateUserInfo = {
+      _id: user?._id,
+      name: data?.name,
+      email: user?.email,
+      role: user?.role,
+      profileImage: data?.profileImage,
+    };
+    console.log(updateUserInfo);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
   };
 
   if (isLoading) {
@@ -22,9 +37,35 @@ const Profile = () => {
     <div>
       {user && (
         <div>
-          <div className="mb-2">
-            <Avatar src={user?.profileImage} className="w-40 h-40 text-large" />
+          <div className="mb-2 flex justify-between items-center">
+            <div>
+              <Avatar
+                src={user?.profileImage}
+                className="w-40 h-40 text-large"
+              />
+            </div>
+            <div>
+              <Button
+                variant="ghost"
+                className="text-1xl"
+                onClick={() => setIsEditing(true)}
+              >
+                <FaUserEdit
+                  className={
+                    isEditing
+                      ? "text-green-500 h-5 w-5"
+                      : "text-orange-600 h-5 w-5"
+                  }
+                />
+                <span
+                  className={isEditing ? "text-green-500" : "text-orange-600"}
+                >
+                  Edit Profile
+                </span>
+              </Button>
+            </div>
           </div>
+
           <PHForm onSubmit={onSubmit}>
             <div className="grid grid-cols-2 gap-5">
               <div className="py-3">
@@ -76,13 +117,30 @@ const Profile = () => {
               />
             </div>
 
-            <Button
-              className="my-3 w-full rounded-md bg-teal-600 text-white"
-              size="lg"
-              type="submit"
-            >
-              Update
-            </Button>
+            {/* update and cancel button */}
+            {isEditing && (
+              <div className="flex gap-4">
+                <div>
+                  <Button
+                    className="my-3 rounded-md bg-teal-600 text-white"
+                    size="lg"
+                    type="submit"
+                  >
+                    Update
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    className="my-3 rounded-md bg-teal-600 text-white"
+                    size="lg"
+                    type="submit"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
           </PHForm>
         </div>
       )}
