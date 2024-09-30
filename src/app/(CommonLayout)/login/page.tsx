@@ -11,6 +11,7 @@ import { useUserLogIn } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/src/context/user.provider";
+import { Card } from "@nextui-org/card";
 
 const LogIn = () => {
   const searchParams = useSearchParams();
@@ -36,9 +37,9 @@ const LogIn = () => {
   }
 
   return (
-    <>
+    <Card>
       {isPending && !isSuccess && <Loading />}
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
+      <div className="flex h-[90vh] w-full flex-col items-center justify-center mb-10">
         <h3 className="my-2 text-3xl font-extrabold text-teal-500">Log In</h3>
         <p className="mb-4 text-teal-500 font-bold">
           Welcome Back! Let&lsquo;s Get Started
@@ -71,7 +72,7 @@ const LogIn = () => {
           </div>
         </div>
       </div>
-    </>
+    </Card>
   );
 };
 

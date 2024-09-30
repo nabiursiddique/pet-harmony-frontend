@@ -6,7 +6,7 @@ import Container from "./Container";
 
 const Footer = () => {
   return (
-    <footer className=" text-white py-8 border-t-1">
+    <footer className="py-8">
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-8 md:space-y-0">
           {/* About Section */}

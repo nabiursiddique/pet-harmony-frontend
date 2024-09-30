@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PHForm from "@/src/components/form/PHForm";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
+import { Card } from "@nextui-org/card";
 
 const Register = () => {
   const {
@@ -23,9 +24,9 @@ const Register = () => {
   };
 
   return (
-    <>
+    <Card>
       {isPending && !isSuccess && <Loading />}
-      <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
+      <div className="flex h-[90vh] flex-col items-center justify-center mb-10">
         <h3 className="my-2 text-3xl font-extrabold text-teal-500">Register</h3>
         <p className="mb-4 text-teal-500 font-bold">
           Let's Get Started a new journey
@@ -81,7 +82,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </>
+    </Card>
   );
 };
 
