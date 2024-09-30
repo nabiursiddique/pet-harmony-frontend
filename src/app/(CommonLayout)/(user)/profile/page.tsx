@@ -4,6 +4,7 @@ import PHForm from "@/src/components/form/PHForm";
 import PHInput from "@/src/components/form/PHInput";
 import ProfileCardSkeleton from "@/src/components/UI/Skeletons/ProfileCardSkeleton";
 import { useUser } from "@/src/context/user.provider";
+import { useUpdateProfile } from "@/src/hooks/user.hook";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
@@ -13,23 +14,25 @@ import { FaUserEdit } from "react-icons/fa";
 const Profile = () => {
   const { user, isLoading } = useUser();
   const [isEditing, setIsEditing] = useState(false);
+  const {
+    mutate: handleUpdateProfile,
+    isPending,
+    isSuccess,
+  } = useUpdateProfile();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const updateUserInfo = {
-      _id: user?._id,
       name: data?.name,
-      email: user?.email,
-      role: user?.role,
       profileImage: data?.profileImage,
     };
-    console.log(updateUserInfo);
+    handleUpdateProfile(updateUserInfo);
   };
 
   const handleCancel = () => {
     setIsEditing(false);
   };
 
-  if (isLoading) {
+  if (isLoading || isPending) {
     return <ProfileCardSkeleton />;
   }
 

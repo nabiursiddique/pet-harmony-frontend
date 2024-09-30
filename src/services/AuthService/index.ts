@@ -35,8 +35,7 @@ export const logInUser = async (userData: FieldValues) => {
 
     return data;
   } catch (error: any) {
-    const errorMessage =
-      error?.response?.data?.message || "Registration failed";
+    const errorMessage = error?.response?.data?.message || "Login failed";
     throw new Error(errorMessage);
   }
 };
