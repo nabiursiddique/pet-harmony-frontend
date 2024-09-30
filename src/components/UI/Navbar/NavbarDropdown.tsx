@@ -1,5 +1,6 @@
 "use client";
 
+import { protectedRoutes } from "@/src/constant";
 import { useUser } from "@/src/context/user.provider";
 import { logout } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
@@ -9,11 +10,12 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const NavbarDropdown = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, setIsLoading: userLoading } = useUser();
 
   //* handling logout
@@ -21,9 +23,11 @@ const NavbarDropdown = () => {
     logout();
     userLoading(true);
     toast.success("Logout Successful");
-    // if (protectedRoutes.some((route) => pathname.match(route))) {
-    //   router.push("/");
-    // }
+
+    // after logout we will send to the home page
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
 
   const handleNavigation = (pathName: string) => {

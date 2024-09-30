@@ -13,6 +13,7 @@ const PHInput = ({
   type = "text",
   label,
   name,
+  defaultValue,
 }: IProps) => {
   const {
     register,
@@ -28,6 +29,7 @@ const PHInput = ({
       required={required}
       type={type}
       label={label}
+      defaultValue={defaultValue}
     />
   );
 };

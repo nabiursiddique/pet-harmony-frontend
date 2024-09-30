@@ -36,7 +36,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         )}
 
         {/* Main content area */}
-        <div className="flex-1 w-full md:w-3/4 md:ml-[250px] p-4">
+        <div className="flex-1 w-full md:w-3/4 p-4">
           {/* Toggle Button */}
           <Button
             className="fixed top-14 left-0 z-50 p-2 md:hidden"
