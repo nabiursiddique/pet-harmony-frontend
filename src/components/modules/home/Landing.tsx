@@ -6,7 +6,7 @@ import Link from "next/link";
 const Landing = () => {
   return (
     <Card className="py-4  flex" shadow="none">
-      <CardBody className="overflow-visible py-2 mx-5">
+      <CardBody className="overflow-visible py-2 lg:mx-5">
         <div className="flex items-center justify-between">
           <div className="lg:w-2/5 w-full">
             <h1 className="text-6xl font-bold mb-2 text-default-900">
