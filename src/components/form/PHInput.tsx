@@ -14,6 +14,8 @@ const PHInput = ({
   label,
   name,
   defaultValue,
+  value,
+  isDisabled,
 }: IProps) => {
   const {
     register,
@@ -30,6 +32,8 @@ const PHInput = ({
       type={type}
       label={label}
       defaultValue={defaultValue}
+      value={value}
+      isDisabled={isDisabled}
     />
   );
 };

@@ -13,6 +13,8 @@ export interface IInput {
   name: string;
   disabled?: boolean;
   defaultValue?: string;
+  value?: string;
+  isDisabled?: boolean;
 }
 
 export interface IUser {

@@ -29,10 +29,11 @@ const Profile = () => {
             <div className="grid grid-cols-2 gap-5">
               <div className="py-3">
                 <PHInput
-                  defaultValue={user?._id}
+                  value={user?._id}
                   label="User Id"
                   name="userId"
                   size="sm"
+                  isDisabled
                 />
               </div>
               <div className="py-3">
@@ -48,18 +49,20 @@ const Profile = () => {
             <div className="grid grid-cols-2 gap-5">
               <div className="py-3">
                 <PHInput
-                  defaultValue={user?.email}
+                  value={user?.email}
                   label="Email"
                   name="email"
                   size="sm"
+                  isDisabled
                 />
               </div>
               <div className="py-3">
                 <PHInput
-                  defaultValue={user?.role}
+                  value={user?.role}
                   label="Role"
                   name="role"
                   size="sm"
+                  isDisabled
                 />
               </div>
             </div>
