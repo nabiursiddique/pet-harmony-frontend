@@ -6,24 +6,34 @@ import { Image } from "@nextui-org/image";
 import { SidebarOptions } from "./SidebarOptions";
 import { adminLinks, userLinks } from "./constants";
 import Link from "next/link";
+import ProfileCardSkeleton from "../Skeletons/ProfileCardSkeleton";
 
 const Sidebar = () => {
   const { user } = useUser();
 
   return (
-    <div>
-      <div className="rounded-xl bg-default-100 p-2">
-        <div className="h-[330px] w-full rounded-md">
-          <Image
-            alt="profile"
-            className="w-full h-full object-cover rounded-md"
-            src={user?.profileImage as string}
-          />
+    <div className="space-y-4 md:space-y-6 pb-3">
+      {/* Profile Section */}
+      <div className="rounded-xl bg-default-100 px-2">
+        <div className=" w-full rounded-md">
+          {user ? (
+            <Image
+              alt="profile"
+              className="w-full h-full object-cover rounded-md"
+              src={user?.profileImage as string}
+            />
+          ) : (
+            <ProfileCardSkeleton />
+          )}
         </div>
-        <div className="my-3">
-          <h1 className="text-2xl font-semibold">{user?.name}</h1>
-          <p className="break-words text-sm">{user?.email}</p>
+
+        <div className="my-3 text-center md:text-left">
+          <h1 className="text-lg font-semibold md:text-2xl">{user?.name}</h1>
+          <p className="break-words text-sm text-muted-foreground">
+            {user?.email}
+          </p>
         </div>
+
         <Button
           as={Link}
           className="mt-2 w-full rounded-md"
@@ -32,11 +42,15 @@ const Sidebar = () => {
           Create a post
         </Button>
       </div>
-      <div className="mt-3 rounded-xl bg-default-100 p-2">
-        <SidebarOptions
-          links={user?.role === "user" ? userLinks : adminLinks}
-        />
-      </div>
+
+      {/* Sidebar Options */}
+      {user && (
+        <div className="rounded-xl bg-default-100 px-2">
+          <SidebarOptions
+            links={user?.role === "user" ? userLinks : adminLinks}
+          />
+        </div>
+      )}
     </div>
   );
 };
