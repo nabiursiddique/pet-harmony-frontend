@@ -10,18 +10,51 @@ import PHForm from "@/src/components/form/PHForm";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
 import { Card } from "@nextui-org/card";
+import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const router = useRouter();
   const {
     mutate: handleUserRegistration,
     isPending,
     isSuccess,
   } = useUserRegistration();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const userData = data;
-    handleUserRegistration(userData);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFiles([file]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+    const userRegistrationData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    formData.append("data", JSON.stringify(userRegistrationData));
+    if (imageFiles.length > 0) {
+      formData.append("profileImage", imageFiles[0]);
+    }
+    handleUserRegistration(formData);
+  };
+
+  // redirecting user after login
+  if (!isPending && isSuccess) {
+    router.push("/");
+  }
 
   return (
     <Card>
@@ -35,21 +68,16 @@ const Register = () => {
           <PHForm
             onSubmit={onSubmit}
             resolver={zodResolver(registerValidationSchema)}
-            //! For Development only
-            defaultValues={{
-              name: "Nabiur Siddique",
-              email: "nabiursiddique01@gmail.com",
-              password: "123456",
-              profileImage:
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-            }}
           >
+            {/* Name */}
             <div className="py-3">
-              <PHInput label="Name" name="name" size="sm" />
+              <PHInput label="Name" name="name" type="text" size="sm" />
             </div>
+            {/* Email */}
             <div className="py-3">
-              <PHInput label="Email" name="email" size="sm" />
+              <PHInput label="Email" name="email" type="email" size="sm" />
             </div>
+            {/* Password */}
             <div className="py-3">
               <PHInput
                 label="Password"
@@ -58,13 +86,33 @@ const Register = () => {
                 type="password"
               />
             </div>
-            <div className="py-3">
-              <PHInput
-                label="Profile Image URL"
-                name="profileImage"
-                size="sm"
+            {/* profile image */}
+            <div className="min-w-fit flex-1">
+              <label
+                className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
+                htmlFor="image"
+              >
+                Upload image
+              </label>
+              <input
+                className="hidden"
+                id="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+                required
               />
             </div>
+            {/* Image Preview */}
+            {imagePreview && (
+              <div className="mt-4">
+                <img
+                  src={imagePreview}
+                  alt="Image Preview"
+                  className="w-20 h-auto rounded-md"
+                />
+              </div>
+            )}
 
             <Button
               className="my-3 w-full rounded-md bg-teal-600 text-white"
