@@ -3,14 +3,19 @@
 import PHInput from "@/src/components/form/PHInput";
 import PHSelect from "@/src/components/form/PHSelect";
 import { Button } from "@nextui-org/button";
-import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import React, { ChangeEvent, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const CreatePost = () => {
   const methods = useForm();
-  const { handleSubmit, register, setValue } = methods;
+  const { handleSubmit, setValue, reset } = methods;
+
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const categoryOptions = [
     { key: "tips", label: "Tips" },
@@ -22,8 +27,37 @@ const CreatePost = () => {
     { key: "true", label: "Premium" },
   ];
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFiles([file]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    const formData = new FormData();
+    const postData = {
+      title: data.title,
+      category: data.category,
+      isPremium: data.isPremium,
+      content: data.content,
+    };
+    formData.append("data", JSON.stringify(postData));
+    if (imageFiles.length > 0) {
+      formData.append("image", imageFiles[0]);
+    }
+    // showing from data
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+    // resetting the form
+    reset();
   };
 
   return (
@@ -36,10 +70,14 @@ const CreatePost = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Input title */}
             <div className="mb-2">
+              <label className="text-teal-600 font-bold mb-2">Title</label>
               <PHInput name="title" label="Title" type="text" required />
             </div>
             {/* Category selection */}
             <div className="mb-2">
+              <label className="text-teal-600 font-bold mb-2">
+                Select Category
+              </label>
               <PHSelect
                 options={categoryOptions}
                 name="category"
@@ -50,25 +88,67 @@ const CreatePost = () => {
             </div>
             {/* premium selection */}
             <div className="mb-2">
+              <label className="text-teal-600 font-bold mb-2">
+                Want to make Premium?
+              </label>
               <PHSelect
                 options={premiumOptions}
                 name="isPremium"
-                label="Make Premium"
+                label="Select Premium / Free"
                 type="text"
                 required
               />
             </div>
-            <Button
-              className="my-3 w-full rounded-md bg-teal-600 text-white"
-              size="lg"
-              type="submit"
-            >
-              Create Post
-            </Button>
+            {/* text editor */}
+            <div className="mb-2">
+              <label className="text-teal-600 font-bold mb-2">
+                Your Thoughts
+              </label>
+              <ReactQuill
+                theme="snow"
+                onChange={(value) => setValue("content", value)} // Set content value directly
+              />
+            </div>
+            {/* post image */}
+            <div className="min-w-fit flex-1 mb-2">
+              <label
+                className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
+                htmlFor="image"
+              >
+                Upload image
+              </label>
+              <input
+                className="hidden"
+                id="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+                required
+              />
+            </div>
+            {/* Image Preview */}
+            {imagePreview && (
+              <div className="mt-4">
+                <img
+                  src={imagePreview}
+                  alt="Image Preview"
+                  className="w-20 h-auto rounded-md"
+                />
+              </div>
+            )}
+
+            <div className="mt-2">
+              <Button
+                className="my-3 w-full rounded-md bg-teal-600 text-white"
+                size="lg"
+                type="submit"
+              >
+                Create Post
+              </Button>
+            </div>
           </form>
         </FormProvider>
       </div>
-      {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
     </div>
   );
 };
