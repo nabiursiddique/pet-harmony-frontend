@@ -84,3 +84,19 @@ export const getNewAccessToken = async () => {
     throw new Error("Failed to get new accessToken");
   }
 };
+
+//* change password
+export const changePassword = async (passwordData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/auth/change-password",
+      passwordData
+    );
+
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || "Change password failed";
+    throw new Error(errorMessage);
+  }
+};
