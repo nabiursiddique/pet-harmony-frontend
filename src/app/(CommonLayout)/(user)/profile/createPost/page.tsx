@@ -2,22 +2,22 @@
 
 import PHInput from "@/src/components/form/PHInput";
 import PHSelect from "@/src/components/form/PHSelect";
+import PHTextarea from "@/src/components/form/PHTextarea";
 import { Button } from "@nextui-org/button";
-import dynamic from "next/dynamic";
 import React, { ChangeEvent, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import "react-quill/dist/quill.snow.css";
 
-const ReactQuill = dynamic(
-  () => {
-    return import("react-quill");
-  },
-  { ssr: false }
-);
+// const ReactQuill = dynamic(
+//   () => {
+//     return import("react-quill");
+//   },
+//   { ssr: false }
+// );
 
 const CreatePost = () => {
   const methods = useForm();
-  const { handleSubmit, setValue, reset } = methods;
+  const { handleSubmit, reset } = methods;
 
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -109,10 +109,17 @@ const CreatePost = () => {
               <label className="text-teal-600 font-bold mb-2">
                 Your Thoughts
               </label>
-              <ReactQuill
+              <PHTextarea
+                label="Write your Thoughts"
+                name="content"
+                type="text"
+                required
+              />
+              {/* Getting error when using reactQuill */}
+              {/* <ReactQuill
                 theme="snow"
                 onChange={(value) => setValue("content", value)} // Set content value directly
-              />
+              /> */}
             </div>
             {/* post image */}
             <div className="min-w-fit flex-1 mb-2">
