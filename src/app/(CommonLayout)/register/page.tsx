@@ -12,11 +12,13 @@ import Loading from "@/src/components/UI/Loading";
 import { Card } from "@nextui-org/card";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const Register = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const router = useRouter();
+  const { setIsLoading: userLoading } = useUser();
   const {
     mutate: handleUserRegistration,
     isPending,
@@ -49,6 +51,7 @@ const Register = () => {
       formData.append("profileImage", imageFiles[0]);
     }
     handleUserRegistration(formData);
+    userLoading(true);
   };
 
   // redirecting user after login
