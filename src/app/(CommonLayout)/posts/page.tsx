@@ -3,6 +3,9 @@ import PostPageHeader from "@/src/components/modules/post/PostPageHeader";
 import { Card } from "@nextui-org/card";
 
 const Posts = () => {
+  //! Getting error
+  // const { data: allPosts, isLoading, isSuccess } = useGetAllPosts();
+  // console.log(allPosts);
   return (
     <Card>
       <PostPageHeader />
