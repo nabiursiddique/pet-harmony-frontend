@@ -45,5 +45,11 @@ export async function middleware(request: NextRequest) {
 
 // protected routes / middleware will only work when we go to these routes
 export const config = {
-  matcher: ["/posts", "/login", "/register", "/profile/:page*"],
+  matcher: [
+    "/posts",
+    "/login",
+    "/register",
+    "/profile/:page*",
+    "/admin/:page*",
+  ],
 };

@@ -34,13 +34,23 @@ const Sidebar = () => {
           </p>
         </div>
 
-        <Button
-          as={Link}
-          className="mt-2 w-full rounded-md"
-          href={"/profile/createPost"}
-        >
-          Create a post
-        </Button>
+        {user?.role === "user" ? (
+          <Button
+            as={Link}
+            className="mt-2 w-full rounded-md"
+            href={"/profile/createPost"}
+          >
+            Create a post
+          </Button>
+        ) : (
+          <Button
+            as={Link}
+            className="mt-2 w-full rounded-md"
+            href={"/admin/createPost"}
+          >
+            Create a post
+          </Button>
+        )}
       </div>
 
       {/* Sidebar Options */}

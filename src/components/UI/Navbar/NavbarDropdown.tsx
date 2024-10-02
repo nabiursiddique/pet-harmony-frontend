@@ -46,7 +46,7 @@ const NavbarDropdown = () => {
             </DropdownItem>
 
             <DropdownItem
-              onClick={() => handleNavigation("/profile/create-post")}
+              onClick={() => handleNavigation("/profile/createPost")}
             >
               Create Post
             </DropdownItem>
@@ -67,9 +67,7 @@ const NavbarDropdown = () => {
               Profile
             </DropdownItem>
 
-            <DropdownItem
-              onClick={() => handleNavigation("/admin/create-post")}
-            >
+            <DropdownItem onClick={() => handleNavigation("/admin/createPost")}>
               Create Post
             </DropdownItem>
             <DropdownItem

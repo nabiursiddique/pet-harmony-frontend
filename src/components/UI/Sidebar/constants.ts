@@ -6,6 +6,8 @@ export const userLinks = [
 
 export const adminLinks = [
   { href: "/admin/createPost", label: "Create Post" },
-  { href: "/admin/changePassword", label: "Change Password" },
+  { href: "/admin/manageUsers", label: "Manage Users" },
+  { href: "/admin/managePosts", label: "Manage Posts" },
   { href: "/admin/myPosts", label: "My Posts" },
+  { href: "/admin/changePassword", label: "Change Password" },
 ];
