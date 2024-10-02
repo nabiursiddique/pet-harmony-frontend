@@ -41,12 +41,12 @@ const NavbarDropdown = () => {
       {user?.role === "user" ? (
         <>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem onClick={() => handleNavigation("/profile")}>
+            <DropdownItem onClick={() => handleNavigation("/user/profile")}>
               Profile
             </DropdownItem>
 
             <DropdownItem
-              onClick={() => handleNavigation("/profile/createPost")}
+              onClick={() => handleNavigation("/user/createPost")}
             >
               Create Post
             </DropdownItem>

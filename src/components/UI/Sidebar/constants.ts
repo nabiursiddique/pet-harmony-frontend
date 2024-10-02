@@ -1,13 +1,15 @@
 export const userLinks = [
-  { href: "/profile/createPost", label: "Create Post" },
-  { href: "/profile/changePassword", label: "Change Password" },
-  { href: "/profile/myPosts", label: "My Posts" },
+  { href: "/user/profile", label: "My Profile" },
+  { href: "/user/createPost", label: "Create Post" },
+  { href: "/user/myPosts", label: "My Posts" },
+  { href: "/user/changePassword", label: "Change Password" },
 ];
 
 export const adminLinks = [
+  { href: "/admin/profile", label: "My Profile" },
   { href: "/admin/createPost", label: "Create Post" },
-  { href: "/admin/manageUsers", label: "Manage Users" },
-  { href: "/admin/managePosts", label: "Manage Posts" },
   { href: "/admin/myPosts", label: "My Posts" },
+  { href: "/admin/manageUsers", label: "Manage Users" },
+  { href: "/admin/managePosts", label: "Manage Users Posts" },
   { href: "/admin/changePassword", label: "Change Password" },
 ];

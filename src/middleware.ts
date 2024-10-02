@@ -7,8 +7,8 @@ type Role = keyof typeof roleBasedRoutes;
 const AuthRoutes = ["/login", "/register"];
 
 const roleBasedRoutes = {
-  // user can access these routes (/^\/profile/ means starting with /profile)
-  user: [/^\/profile/, "/posts"],
+  // user can access these routes (/^\/user/ means starting with /user)
+  user: [/^\/user/, "/posts"],
   // admin can access these routes
   admin: [/^\/admin/, "/posts"],
 };
@@ -45,11 +45,5 @@ export async function middleware(request: NextRequest) {
 
 // protected routes / middleware will only work when we go to these routes
 export const config = {
-  matcher: [
-    "/posts",
-    "/login",
-    "/register",
-    "/profile/:page*",
-    "/admin/:page*",
-  ],
+  matcher: ["/posts", "/login", "/register", "/user/:page*", "/admin/:page*"],
 };

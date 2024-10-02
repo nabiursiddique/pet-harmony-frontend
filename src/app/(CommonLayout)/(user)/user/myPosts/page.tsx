@@ -76,8 +76,6 @@ const users = [
   },
 ];
 
-export { columns, users };
-
 const statusColorMap = {
   active: "success",
   paused: "danger",
