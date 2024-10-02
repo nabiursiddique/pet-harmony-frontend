@@ -10,7 +10,7 @@ const roleBasedRoutes = {
   // user can access these routes (/^\/profile/ means starting with /profile)
   user: [/^\/profile/, "/posts"],
   // admin can access these routes
-  admin: [/^\/admin/],
+  admin: [/^\/admin/, "/posts"],
 };
 
 export async function middleware(request: NextRequest) {

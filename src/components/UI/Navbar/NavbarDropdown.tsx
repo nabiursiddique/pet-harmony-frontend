@@ -38,24 +38,51 @@ const NavbarDropdown = () => {
       <DropdownTrigger>
         <Avatar className="cursor-pointer" src={user?.profileImage} />
       </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleNavigation("/profile")}>
-          Profile
-        </DropdownItem>
+      {user?.role === "user" ? (
+        <>
+          <DropdownMenu aria-label="Static Actions">
+            <DropdownItem onClick={() => handleNavigation("/profile")}>
+              Profile
+            </DropdownItem>
 
-        <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
-          Create Post
-        </DropdownItem>
+            <DropdownItem
+              onClick={() => handleNavigation("/profile/create-post")}
+            >
+              Create Post
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => handleLogout()}
+              key="delete"
+              className="text-danger"
+              color="danger"
+            >
+              Logout
+            </DropdownItem>
+          </DropdownMenu>
+        </>
+      ) : (
+        <>
+          <DropdownMenu aria-label="Static Actions">
+            <DropdownItem onClick={() => handleNavigation("/admin/profile")}>
+              Profile
+            </DropdownItem>
 
-        <DropdownItem
-          onClick={() => handleLogout()}
-          key="delete"
-          className="text-danger"
-          color="danger"
-        >
-          Logout
-        </DropdownItem>
-      </DropdownMenu>
+            <DropdownItem
+              onClick={() => handleNavigation("/admin/create-post")}
+            >
+              Create Post
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => handleLogout()}
+              key="delete"
+              className="text-danger"
+              color="danger"
+            >
+              Logout
+            </DropdownItem>
+          </DropdownMenu>
+        </>
+      )}
     </Dropdown>
   );
 };
