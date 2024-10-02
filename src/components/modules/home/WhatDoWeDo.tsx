@@ -37,7 +37,7 @@ const WhatDoWeDo = () => {
   return (
     <div className="max-w-6xl lg:mx-auto mx-5 py-10">
       <div className="mb-5">
-        <h1 className="lg:text-5xl md:text-5xl font-bold uppercase mt-5 mb-10 text-center">
+        <h1 className="lg:text-5xl md:text-5xl text-4xl font-bold uppercase mt-5 mb-10 text-center">
           What Do We Do
           <span className="text-teal-600 lg:text-6xl text-3xl"> ?</span>
         </h1>

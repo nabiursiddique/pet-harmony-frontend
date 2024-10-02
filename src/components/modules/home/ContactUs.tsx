@@ -4,12 +4,12 @@ const ContactUs = () => {
   return (
     <div className="py-10">
       <div>
-        <h1 className="lg:text-5xl md:text-5xl font-bold uppercase mt-5 mb-10 text-center">
+        <h1 className="lg:text-5xl md:text-5xl text-4xl font-bold uppercase mt-5 mb-10 text-center">
           Contact Us
         </h1>
       </div>
 
-      <div className="flex justify-center my-5">
+      <div className="flex justify-center m-5">
         <div>
           <form className="w-full">
             <div className="flex flex-wrap -mx-3 mb-6">

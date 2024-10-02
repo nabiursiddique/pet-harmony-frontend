@@ -15,7 +15,7 @@ const OurJourney = () => {
   return (
     <div className="max-w-6xl mx-auto py-10">
       <div className="mb-5">
-        <h1 className="lg:text-5xl md:text-5xl font-bold uppercase mt-5 mb-10 text-center">
+        <h1 className="lg:text-5xl md:text-5xl text-4xl font-bold uppercase mt-5 mb-10 text-center">
           Our Journey
         </h1>
       </div>
