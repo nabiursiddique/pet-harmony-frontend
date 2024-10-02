@@ -3,10 +3,17 @@
 import PHInput from "@/src/components/form/PHInput";
 import PHSelect from "@/src/components/form/PHSelect";
 import PHTextarea from "@/src/components/form/PHTextarea";
+import Loading from "@/src/components/UI/Loading";
+import { useCreatePost } from "@/src/hooks/post.hook";
 import { Button } from "@nextui-org/button";
 import React, { ChangeEvent, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import "react-quill/dist/quill.snow.css";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+// import "react-quill/dist/quill.snow.css";
 
 // const ReactQuill = dynamic(
 //   () => {
@@ -18,6 +25,7 @@ import "react-quill/dist/quill.snow.css";
 const CreatePost = () => {
   const methods = useForm();
   const { handleSubmit, reset } = methods;
+  const { mutate: handleCreatePost, isPending, isSuccess } = useCreatePost();
 
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -45,7 +53,7 @@ const CreatePost = () => {
     }
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     const postData = {
       title: data.title,
@@ -53,20 +61,22 @@ const CreatePost = () => {
       isPremium: data.isPremium,
       content: data.content,
     };
+
     formData.append("data", JSON.stringify(postData));
     if (imageFiles.length > 0) {
       formData.append("image", imageFiles[0]);
     }
-    // showing from data
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
+
+    //* sending data to the backend
+    handleCreatePost(formData);
+
     // resetting the form
     reset();
   };
 
   return (
     <div>
+      {isPending && !isSuccess && <Loading />}
       <div className="mb-3">
         <h1 className="text-3xl font-extrabold text-teal-600">Create Post</h1>
       </div>
