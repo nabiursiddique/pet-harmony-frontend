@@ -1,3 +1,4 @@
+import ContactUs from "@/src/components/modules/home/ContactUs";
 import Landing from "@/src/components/modules/home/Landing";
 import OurJourney from "@/src/components/modules/home/OurJourney";
 import WhatDoWeDo from "@/src/components/modules/home/WhatDoWeDo";
@@ -9,6 +10,7 @@ const Home = () => {
       <Landing />
       <WhatDoWeDo />
       <OurJourney />
+      <ContactUs />
     </Card>
   );
 };
