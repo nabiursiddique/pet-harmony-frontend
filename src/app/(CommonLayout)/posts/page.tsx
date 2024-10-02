@@ -1,8 +1,14 @@
+import PostCard from "@/src/components/modules/post/PostCard";
+import PostPageHeader from "@/src/components/modules/post/PostPageHeader";
+import { Card } from "@nextui-org/card";
+
 const Posts = () => {
   return (
-    <div>
-      <h1 className="text-3xl">All Posts</h1>
-    </div>
+    <Card>
+      <PostPageHeader />
+      <PostCard />
+      <PostCard />
+    </Card>
   );
 };
 
