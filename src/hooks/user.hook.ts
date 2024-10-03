@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
-import { updateProfile } from "../services/UserService";
+import { getAllUsers, updateProfile } from "../services/UserService";
 import { toast } from "sonner";
 
 export const useUpdateProfile = () => {
@@ -17,10 +17,10 @@ export const useUpdateProfile = () => {
   });
 };
 
-//! Getting error  
-// export const useGetAllUser = () => {
-//   return useQuery({
-//     queryKey: ["ALL_USERS"],
-//     queryFn: async () => await getAllUsers(),
-//   });
-// };
+//! Getting error
+export const useGetAllUser = () => {
+  return useQuery({
+    queryKey: ["ALL_USERS"],
+    queryFn: async () => await getAllUsers(),
+  });
+};

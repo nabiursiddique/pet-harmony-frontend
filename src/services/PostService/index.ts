@@ -16,18 +16,7 @@ export const createPost = async (postData: FieldValues) => {
   }
 };
 
-//! get all posts (problem (getting error))
-// export const getAllPosts = async () => {
-//   try {
-//     const data = await axiosInstance.get("/post/all-posts");
-//     return data;
-//   } catch (error: any) {
-//     const errorMessage =
-//       error?.response?.data?.message || "Could not get all posts";
-//     throw new Error(errorMessage);
-//   }
-// };
-
+// getting all posts from db
 export const getAllPosts = async () => {
   const fetchOption = {
     next: {

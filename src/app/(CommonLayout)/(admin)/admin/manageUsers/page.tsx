@@ -13,6 +13,8 @@ import {
 } from "@nextui-org/react";
 import { DeleteIcon, EditIcon, EyeIcon } from "@/src/components/icons";
 import { IUser } from "@/src/types";
+import { useGetAllUser } from "@/src/hooks/user.hook";
+import Loading from "@/src/components/UI/Loading";
 
 // User data based on the provided structure
 const users = [
@@ -47,6 +49,10 @@ const columns = [
 ];
 
 const ManageUsers = () => {
+  //* get users data
+  const { data, isLoading, isPending } = useGetAllUser();
+  console.log(data?.data);
+
   const renderCell = React.useCallback(
     (user: IUser, columnKey: keyof IUser | "actions") => {
       if (columnKey === "actions") {
@@ -94,7 +100,7 @@ const ManageUsers = () => {
   );
 
   return (
-    <Table>
+    <Table aria-label="Manage Users">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn

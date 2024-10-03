@@ -22,11 +22,11 @@ export const updateProfile = async (userData: FieldValues) => {
 
 //! Getting Error
 //* Get all users
-// export const getAllUsers = async () => {
-//   try {
-//     const { data } = await axiosInstance.get("/user/all-users");
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const getAllUsers = async () => {
+  try {
+    const { data } = await axiosInstance.get("/user/all-users");
+    return data;
+  } catch (error) {
+    console.log("user services error", error);
+  }
+};
