@@ -2,43 +2,69 @@ import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { Divider } from "@nextui-org/react";
-import { FaThumbsUp, FaComment, FaShare, FaPaperPlane } from "react-icons/fa";
+import {
+  FaComment,
+  FaShare,
+  FaPaperPlane,
+  FaAngleDoubleDown,
+  FaAngleDoubleUp,
+} from "react-icons/fa";
 import { Input } from "@nextui-org/input";
+import { IPost } from "@/src/types";
+import { Chip } from "@nextui-org/chip";
+import { Divider } from "@nextui-org/react";
+import { formatDate } from "./FormatDate";
 
-const PostCard = () => {
+const PostCard = ({ post }: { post: IPost }) => {
   return (
     <div className="flex justify-center items-center p-4">
       <Card className="max-w-2xl w-full rounded-lg shadow-lg bg-white dark:bg-gray-800">
         <div className="p-4">
           {/* Header: User info */}
-          <div className="flex items-start">
-            <Avatar
-              src="https://i.pravatar.cc/300"
-              alt="User Avatar"
-              size="lg"
-              className="mr-3"
-            />
-            <div className="flex flex-col">
-              <span className="font-semibold text-gray-800 dark:text-white">
-                Jane Smith
-              </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Senior Software Engineer at TechCorp
-              </span>
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                1 hour ago • San Francisco, CA
-              </span>
+          <div className="flex items-start justify-between">
+            <div className="flex items-start">
+              <Avatar
+                src={post.authorProfileImage}
+                alt="User Avatar"
+                size="lg"
+                className="mr-3"
+              />
+              <div className="flex flex-col">
+                <span className="font-semibold text-gray-800 dark:text-white">
+                  {post?.author}
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  {post?.authorEmail}
+                </span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">
+                  {formatDate(post?.createdAt)}
+                </span>
+              </div>
             </div>
+
+            {/* Premium Chip */}
+            {post.isPremium ? (
+              <Chip
+                color="warning"
+                variant="flat"
+                className="text-xs font-semibold"
+              >
+                Premium
+              </Chip>
+            ) : (
+              <Chip
+                color="success"
+                variant="flat"
+                className="text-xs font-semibold"
+              >
+                Free
+              </Chip>
+            )}
           </div>
 
           {/* Post Content */}
           <div className="mt-4">
-            <p className="text-gray-700 dark:text-gray-300">
-              Excited to share that I’ve started a new position as Senior
-              Software Engineer at TechCorp! Looking forward to this new
-              adventure and the amazing opportunities ahead. 🚀 #newbeginnings
-            </p>
+            <p className="text-gray-700 dark:text-gray-300">{post.content}</p>
           </div>
 
           {/* Image (optional) */}
@@ -46,7 +72,7 @@ const PostCard = () => {
             <Image
               alt="Post Image"
               className="object-cover rounded-md"
-              src="https://i.ibb.co/D7vdvxQ/laptop-2.webp"
+              src={post.image}
             />
           </div>
 
@@ -59,7 +85,16 @@ const PostCard = () => {
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition duration-200 hover:text-blue-500 dark:hover:text-blue-400"
                 size="sm"
               >
-                <FaThumbsUp className="mr-1" /> Like
+                <FaAngleDoubleUp /> UpVote
+                <span>{post.upVotes}</span>
+              </Button>
+              <Button
+                variant="flat"
+                className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition duration-200 hover:text-blue-500 dark:hover:text-blue-400"
+                size="sm"
+              >
+                <FaAngleDoubleDown /> DownVote
+                <span>{post.downVotes}</span>
               </Button>
               <Button
                 variant="flat"
@@ -67,6 +102,7 @@ const PostCard = () => {
                 size="sm"
               >
                 <FaComment className="mr-1" /> Comment
+                <span>{post?.comments.length}</span>
               </Button>
               <Button
                 variant="flat"

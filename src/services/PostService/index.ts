@@ -1,5 +1,6 @@
 "use server";
 
+import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { FieldValues } from "react-hook-form";
 
@@ -16,13 +17,25 @@ export const createPost = async (postData: FieldValues) => {
 };
 
 //! get all posts (problem (getting error))
+// export const getAllPosts = async () => {
+//   try {
+//     const data = await axiosInstance.get("/post/all-posts");
+//     return data;
+//   } catch (error: any) {
+//     const errorMessage =
+//       error?.response?.data?.message || "Could not get all posts";
+//     throw new Error(errorMessage);
+//   }
+// };
+
 export const getAllPosts = async () => {
-  try {
-    const { data } = await axiosInstance.get("/post/all-posts");
-    return data;
-  } catch (error: any) {
-    const errorMessage =
-      error?.response?.data?.message || "Could not get all posts";
-    throw new Error(errorMessage);
-  }
+  const fetchOption = {
+    next: {
+      tags: ["posts"],
+    },
+  };
+
+  const res = await fetch(`${envConfig.baseApi}/post/all-posts`, fetchOption);
+
+  return res.json();
 };

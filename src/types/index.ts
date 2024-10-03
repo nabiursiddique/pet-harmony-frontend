@@ -24,3 +24,24 @@ export interface IUser {
   role: string;
   profileImage: string;
 }
+
+export interface IPost {
+  _id: string;
+  title: string;
+  category: string;
+  isPremium: boolean;
+  content: string;
+  image: string;
+  upVotes: number;
+  downVotes: number;
+  isPublished: boolean;
+  author: string;
+  authorId: string;
+  authorProfileImage: string;
+  authorEmail: string;
+  comments: any[];
+  voters: any[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
