@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
-import { createPost } from "../services/PostService";
+import { createPost, getAllPosts } from "../services/PostService";
 import { toast } from "sonner";
 
 //* For create post
@@ -19,9 +19,9 @@ export const useCreatePost = () => {
 };
 
 //! For get all posts (problem(getting error))
-// export const useGetAllPosts = () => {
-//   return useQuery({
-//     queryKey: ["GET_POSTS"],
-//     queryFn: async () => await getAllPosts(),
-//   });
-// };
+export const useGetAllPosts = () => {
+  return useQuery({
+    queryKey: ["GET_ALL_POSTS"],
+    queryFn: async () => await getAllPosts(),
+  });
+};
