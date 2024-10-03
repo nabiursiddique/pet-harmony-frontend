@@ -18,10 +18,10 @@ export const useCreatePost = () => {
   });
 };
 
-//! For get all posts (problem(getting error))
-// export const useGetAllPosts = () => {
-//   return useQuery({
-//     queryKey: ["GET_ALL_POSTS"],
-//     queryFn: async () => await getAllPosts(),
-//   });
-// };
+//* For get all posts
+export const useGetAllPosts = () => {
+  return useQuery({
+    queryKey: ["GET_ALL_POSTS"],
+    queryFn: async () => await getAllPosts(),
+  });
+};

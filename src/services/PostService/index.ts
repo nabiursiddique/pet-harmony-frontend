@@ -16,15 +16,14 @@ export const createPost = async (postData: FieldValues) => {
   }
 };
 
-// getting all posts from db
+//* getting all posts from db(working)
 export const getAllPosts = async () => {
-  const fetchOption = {
-    next: {
-      tags: ["posts"],
-    },
-  };
-
-  const res = await fetch(`${envConfig.baseApi}/post/all-posts`, fetchOption);
-
-  return res.json();
+  try {
+    const { data } = await axiosInstance.get("/post/all-posts");
+    return data;
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || "Could not get all posts";
+    throw new Error(errorMessage);
+  }
 };
