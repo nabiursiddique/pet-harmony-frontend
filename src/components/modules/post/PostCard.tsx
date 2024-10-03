@@ -37,7 +37,7 @@ const PostCard = ({ post }: { post: IPost }) => {
                   {post?.authorEmail}
                 </span>
                 <span className="text-xs text-gray-400 dark:text-gray-500">
-                  {formatDate(post?.createdAt)}
+                  {formatDate(post.createdAt)}
                 </span>
               </div>
             </div>

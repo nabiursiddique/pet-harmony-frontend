@@ -9,164 +9,83 @@ import {
   TableRow,
   TableCell,
   User,
-  Chip,
   Tooltip,
-  getKeyValue,
 } from "@nextui-org/react";
 import { DeleteIcon, EditIcon, EyeIcon } from "@/src/components/icons";
+import { IUser } from "@/src/types";
 
-// sample data
+// User data based on the provided structure
+const users = [
+  {
+    _id: "66fbc07ebbad01bb546e6fb6",
+    name: "Nabiur Siddique",
+    email: "nabiursiddique01@gmail.com",
+    role: "admin",
+    profileImage:
+      "https://res.cloudinary.com/dsjcyymsd/image/upload/v1727774843/tn6ivdhukv12urq7il6t.jpg",
+    createdAt: "2024-10-01T09:27:26.802Z",
+    updatedAt: "2024-10-03T04:41:08.460Z",
+  },
+  {
+    _id: "66fcf79f227e05f5e3506fda",
+    name: "Zisan Islam",
+    email: "zisan@gmail.com",
+    role: "user",
+    profileImage:
+      "https://res.cloudinary.com/dsjcyymsd/image/upload/v1727854493/p4mpkbjvxr1ikdt6nhyc.jpg",
+    createdAt: "2024-10-02T07:34:55.540Z",
+    updatedAt: "2024-10-02T07:34:55.540Z",
+  },
+];
+
+// Table columns
 const columns = [
   { name: "NAME", uid: "name" },
+  { name: "EMAIL", uid: "email" },
   { name: "ROLE", uid: "role" },
-  { name: "STATUS", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
-const users = [
-  {
-    id: 1,
-    name: "Tony Reichert",
-    role: "CEO",
-    team: "Management",
-    status: "active",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    email: "tony.reichert@example.com",
-  },
-  {
-    id: 2,
-    name: "Zoey Lang",
-    role: "Technical Lead",
-    team: "Development",
-    status: "paused",
-    age: "25",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    email: "zoey.lang@example.com",
-  },
-  {
-    id: 3,
-    name: "Jane Fisher",
-    role: "Senior Developer",
-    team: "Development",
-    status: "active",
-    age: "22",
-    avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-    email: "jane.fisher@example.com",
-  },
-  {
-    id: 4,
-    name: "William Howard",
-    role: "Community Manager",
-    team: "Marketing",
-    status: "vacation",
-    age: "28",
-    avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
-    email: "william.howard@example.com",
-  },
-  {
-    id: 5,
-    name: "Kristen Copper",
-    role: "Sales Manager",
-    team: "Sales",
-    status: "active",
-    age: "24",
-    avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
-    email: "kristen.cooper@example.com",
-  },
-];
-
-const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
-
 const ManageUsers = () => {
   const renderCell = React.useCallback(
-    (
-      user: {
-        [x: string]: any;
-        avatar: any;
-        email:
-          | string
-          | number
-          | bigint
-          | boolean
-          | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-          | Iterable<React.ReactNode>
-          | Promise<React.AwaitedReactNode>
-          | null
-          | undefined;
-        team:
-          | string
-          | number
-          | bigint
-          | boolean
-          | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-          | Iterable<React.ReactNode>
-          | React.ReactPortal
-          | Promise<React.AwaitedReactNode>
-          | null
-          | undefined;
-        status: string | number;
-      },
-      columnKey: string | number
-    ) => {
+    (user: IUser, columnKey: keyof IUser | "actions") => {
+      if (columnKey === "actions") {
+        return (
+          <div className="relative flex items-center gap-2">
+            <Tooltip content="Details">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EyeIcon />
+              </span>
+            </Tooltip>
+            <Tooltip content="Edit user">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EditIcon />
+              </span>
+            </Tooltip>
+            <Tooltip color="danger" content="Delete user">
+              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <DeleteIcon />
+              </span>
+            </Tooltip>
+          </div>
+        );
+      }
+
       const cellValue = user[columnKey];
 
       switch (columnKey) {
         case "name":
           return (
             <User
-              avatarProps={{ radius: "lg", src: user.avatar }}
+              avatarProps={{ radius: "lg", src: user.profileImage }}
               description={user.email}
-              name={cellValue}
-            >
-              {user.email}
-            </User>
+              name={user.name}
+            />
           );
+        case "email":
+          return <p>{user.email}</p>;
         case "role":
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-sm capitalize">{cellValue}</p>
-              <p className="text-bold text-sm capitalize text-default-400">
-                {user.team}
-              </p>
-            </div>
-          );
-        case "status":
-          return (
-            <Chip
-              className="capitalize"
-              // @ts-ignore
-              color={statusColorMap[user.status]}
-              size="sm"
-              variant="flat"
-            >
-              {cellValue}
-            </Chip>
-          );
-        case "actions":
-          return (
-            <div className="relative flex items-center gap-2">
-              <Tooltip content="Details">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                  <EyeIcon />
-                </span>
-              </Tooltip>
-              <Tooltip content="Edit user">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                  <EditIcon />
-                </span>
-              </Tooltip>
-              <Tooltip color="danger" content="Delete user">
-                <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                  <DeleteIcon />
-                </span>
-              </Tooltip>
-            </div>
-          );
+          return <p className="text-bold text-sm capitalize">{user.role}</p>;
         default:
           return cellValue;
       }
@@ -175,7 +94,7 @@ const ManageUsers = () => {
   );
 
   return (
-    <Table aria-label="Example table with custom cells">
+    <Table>
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn
@@ -188,9 +107,11 @@ const ManageUsers = () => {
       </TableHeader>
       <TableBody items={users}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item._id}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell>
+                {renderCell(item, columnKey as keyof IUser | "actions")}
+              </TableCell>
             )}
           </TableRow>
         )}
