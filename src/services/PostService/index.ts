@@ -27,3 +27,14 @@ export const getAllPosts = async () => {
     throw new Error(errorMessage);
   }
 };
+
+//* upvote post
+export const upvotePost = async (postId: string) => {
+  try {
+    const { data } = await axiosInstance.post("/post/upvote-post", { postId });
+    return data;
+  } catch (error: any) {
+    const errorMessage = error?.response?.data?.message || "upvote post failed";
+    throw new Error(errorMessage);
+  }
+};

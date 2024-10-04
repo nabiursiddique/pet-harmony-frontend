@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
@@ -14,8 +16,21 @@ import { IPost } from "@/src/types";
 import { Chip } from "@nextui-org/chip";
 import { Divider } from "@nextui-org/react";
 import { formatDate } from "./FormatDate";
+import { useUser } from "@/src/context/user.provider";
+import { upvotePost } from "@/src/services/PostService";
+import { toast } from "sonner";
 
 const PostCard = ({ post }: { post: IPost }) => {
+  // getting the current user
+  const { user } = useUser();
+  // handle up vote post
+  const handleUpVotePost = async (postId: string) => {
+    try {
+      await upvotePost(postId);
+      toast.success("post up voted successfully");
+    } catch (err) {}
+  };
+
   return (
     <div className="flex justify-center items-center p-4">
       <Card className="max-w-2xl w-full rounded-lg shadow-lg bg-white dark:bg-gray-800">
@@ -84,6 +99,7 @@ const PostCard = ({ post }: { post: IPost }) => {
                 variant="flat"
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 transition duration-200 hover:text-blue-500 dark:hover:text-blue-400"
                 size="sm"
+                onClick={() => handleUpVotePost(post._id)}
               >
                 <FaAngleDoubleUp /> UpVote
                 <span>{post.upVotes}</span>
