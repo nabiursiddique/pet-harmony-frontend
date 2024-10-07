@@ -25,10 +25,22 @@ const PostCard = ({ post }: { post: IPost }) => {
   const { user } = useUser();
   // handle up vote post
   const handleUpVotePost = async (postId: string) => {
+    const alreadyUpvoted = post?.voters?.some(
+      (voter: { userId: string | undefined; voteType: string }) =>
+        voter.userId === user?._id && voter.voteType === "up"
+    );
+
+    if (alreadyUpvoted) {
+      toast.error("You have already upvoted this post.");
+      return;
+    }
+
     try {
       await upvotePost(postId);
       toast.success("post up voted successfully");
-    } catch (err) {}
+    } catch (err) {
+      toast.error("Could not upvote post");
+    }
   };
 
   return (

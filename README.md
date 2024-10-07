@@ -1,53 +1,58 @@
-# Next.js & NextUI Template
+# Pet Harmony Frontend
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+## Overview
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+This is a full-stack Pet Blog website that allows users to post about pets. The application has two roles: **User** and **Admin**.
 
-## Technologies Used
+## Admin Credentials:
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- Admin Email: nabiursiddique01@gmail.com
+- Admin Password: 123456
 
-## How to Use
+## User Credentials:
 
-### Use the template with create-next-app
+- User Email: zisan@gmail.com
+- User Password: 123456
 
-To create a new project based on this template using `create-next-app`, run the following command:
+### Features
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+- **User:**
 
-### Install dependencies
+  - Create an account to create post and see posts.
+  - View Profile information.
+  - Update profile information.
+  - View there posts.
+  - Change password
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+- **Admin:**
+  - Profile Edit
+  - Add posts.
+  - Accept and reject users posts.
+  - View all users, Delete then and change their role.
+  - Change password
 
-```bash
+### Technologies Used
+
+- **Frontend:**
+
+  - NextJs
+  - Tanstack Query
+  - Tailwind CSS
+  - NextUI
+  - TypeScript
+
+- **Backend:**
+  - Node.js
+  - TypeScript
+  - MongoDB
+  - Mongoose
+  - JWT
+
+## To Run The Project
+
+To run the project in your device _clone_ the project and then run the following commands
+
+```shell
 npm install
-```
-
-### Run the development server
-
-```bash
 npm run dev
 ```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
